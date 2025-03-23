@@ -1,0 +1,49 @@
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == NULL){
+            return NULL;
+
+        }
+
+    // check if there are at least k nodes in LL or not  
+      
+    ListNode* temp = head;
+    int count =0;
+    while(temp!=NULL && count<k){
+        temp =temp-> next;
+        count++;
+    }
+
+      
+    //if not the return head   
+    if (count<k) return head;
+
+
+
+
+    //revesre LL logic
+    ListNode* current= head;
+    ListNode* previous=NULL;
+    ListNode* next=NULL;
+    count = 0;
+
+
+    while(current != NULL && count<k){
+        next = current -> next;
+        current->next =previous;
+        previous = current;
+        current = next;
+        count++;
+
+
+    }
+    // iterative call
+    if(next !=NULL){
+        head -> next = reverseKGroup(next,k);
+    }
+    
+    return previous;
+
+    }
+};
