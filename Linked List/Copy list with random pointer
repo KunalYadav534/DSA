@@ -1,0 +1,40 @@
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head==NULL){
+            return NULL;
+        }
+        //create a map and pouinter intialization
+        unordered_map<Node*,Node*> m;
+        Node* newHead = new Node(head->val);
+        Node* oldTemp= head->next;
+        Node* newTemp = newHead;
+
+        m[head]= newHead;
+        while(oldTemp != NULL){
+            //make a copy pointer to copy all nodes to (new node) to make the exact ll
+            Node* copyNode = new Node(oldTemp->val);
+
+            
+            //to store in map
+            m[oldTemp] = copyNode;
+
+            newTemp->next = copyNode;
+
+            oldTemp = oldTemp->next;
+            newTemp = newTemp->next;
+
+        }
+        oldTemp= head; newTemp=newHead;
+        while(oldTemp != NULL){
+            newTemp->random=m[oldTemp->random];
+            oldTemp = oldTemp->next;
+            newTemp = newTemp->next;
+
+
+        }
+        return newHead;
+
+        
+    }
+};
