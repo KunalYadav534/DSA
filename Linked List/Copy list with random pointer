@@ -4,7 +4,7 @@ public:
         if (head==NULL){
             return NULL;
         }
-        //create a map and pouinter intialization
+        //create a map and pointer intialization
         unordered_map<Node*,Node*> m;
         Node* newHead = new Node(head->val);
         Node* oldTemp= head->next;
