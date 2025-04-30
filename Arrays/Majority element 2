@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) 
+    {
+        int count1 = 0;
+        int count2 = 0;
+        int el1 = INT_MIN;
+        int el2 = INT_MIN;
+        for(int i =0 ;i<nums.size();i++){
+            if (nums[i] == el1){
+                count1++;
+                
+            }
+            else if(nums[i] == el2){
+                count2++;
+            }
+            else if (count1 ==0){
+                el1 = nums[i];
+                count1 = 1;
+            }
+
+            else if( count2 == 0){
+               el2 = nums[i] ;
+                count2 =1;
+
+            }
+            else{
+                count1 --;
+                count2--;
+            }
+        }
+        
+
+        int count3 = 0;
+        int count4 =0;
+        for (int i =0 ;i<nums.size();i++){
+            if (nums[i]== el1) count3++;
+            if(nums[i] == el2) count4++;
+
+        }
+         vector<int> ans;
+         if(count3>nums.size()/3)  ans.push_back(el1);
+        
+         if(count4>nums.size( )/3) ans.push_back(el2);
+            
+          
+        return ans;
+    }   
+    
+};
