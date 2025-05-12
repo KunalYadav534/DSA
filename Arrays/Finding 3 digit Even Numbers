@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> findEvenNumbers(vector<int>& digits) {
+        vector<int> result ;
+        vector<int> mp(10,0);   //ek empty arrya bna liya of size 10
+        for(int &digit : digits){
+            mp[digit]++;    // sabhi ki frequency store kr li
+        }
+        for (int i = 1;i<=9;i++){
+            if(mp[i]==0) continue;    // agr current digit ki frequency 0 hai then continue
+            mp[i]--; //else frequency km kr denge
+            for (int j = 0 ;j<=9;j++){
+            if(mp[j]==0) continue;
+            mp[j]--;
+            for (int k = 0;k<=8;k += 2){
+            if(mp[k]==0) continue;
+            mp[k]--;
+
+            int num = i*100 + j*10 + k*1;
+            result.push_back(num);
+            mp[k]++;  // frequency increase kr di 
+
+                }
+                mp[j]++;
+            }
+            mp[i]++;
+        }
+        return result;
+    }
+};
