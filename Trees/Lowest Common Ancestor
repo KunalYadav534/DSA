@@ -1,0 +1,23 @@
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == NULL)
+          return NULL;
+
+        if(root == p|| root ==  q)
+          return root;  
+        TreeNode* leftN = lowestCommonAncestor(root->left ,p ,q);   // to find p and q from left side of the root
+        TreeNode* rightN = lowestCommonAncestor(root->right ,p ,q);   // to find p and q from right side of the root
+
+        if(leftN != NULL && rightN != NULL)      // get value from left and right side both
+            return root;
+        if(leftN != NULL)     // get the value from left side
+          return leftN;
+        if(rightN != NULL)   // get the value from right side
+          return rightN;
+           
+        return NULL;    // don't get value from either side
+        
+    }
+};
