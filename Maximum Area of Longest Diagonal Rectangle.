@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int areaOfMaxDiagonal(vector<vector<int>>& dimensions) {
+        int n = dimensions.size();
+        double maxDiagonal = 0;
+        int bestArea = 0;
+        for(int i =0 ;i<n;i++){
+            int length = dimensions[i][0];
+            int width =  dimensions[i][1];
+           double diagonalLength = sqrt(pow(length, 2) + pow(width, 2));
+           if(diagonalLength>maxDiagonal){
+            maxDiagonal = diagonalLength;
+            bestArea = length*width;
+           }
+           if(diagonalLength==maxDiagonal){
+            bestArea = max(bestArea,length*width);
+           }
+           
+
+        }
+       
+       return bestArea;
+
+
+    }
+};
