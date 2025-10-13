@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minimumDeletions(vector<int>& nums) {
+        int n = nums.size();
+        int minIdx = 0;
+        int maxIdx = 0;
+
+        for(int i = 0 ;i<n;i++){
+            if(nums[i]>nums[maxIdx]) maxIdx = i;  // find the largest element index
+            if(nums[i]<nums[minIdx]) minIdx = i; // find the smallest element index
+        }
+
+        int left_d = min(minIdx,maxIdx);  
+        int right_d  = max(minIdx,maxIdx);
+
+        int removal =  min({
+            right_d + 1,//remove front elmnts
+            n - left_d,// remove from the last
+           ((left_d+1) + (n - right_d)) //remove from both ends 
+
+
+        });
+
+        return removal;
+        
+        
+    }
+};
