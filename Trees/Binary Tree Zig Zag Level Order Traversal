@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        if(root == NULL){
+            return result;
+        }
+
+        queue<TreeNode*>  nodesQueue;  //initializar=tion of the queue
+        nodesQueue.push(root);
+        bool leftToRight = true; //flag for direction
+
+        while(!nodesQueue.empty()){
+            int n = nodesQueue.size();
+            vector<int> row(n); //to store elements at every level
+            for(int i =0;i<n;i++){
+                TreeNode* node = nodesQueue.front(); //bfs traversal store the front node in pointer node and remove it              
+                 nodesQueue.pop();
+
+                int index = (leftToRight) ? i :(n- i -1); //for directions
+                row[index] = node->val; 
+                if(node->left){
+                    nodesQueue.push(node->left); 
+                }
+            if(node->right){
+                nodesQueue.push(node->right);
+            }
+
+
+        }
+        leftToRight = !leftToRight; //negate the flag value
+        result.push_back(row);
+        }
+        return result;
+    }
+};
