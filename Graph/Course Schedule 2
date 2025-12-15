@@ -1,0 +1,49 @@
+class Solution {
+public:
+    vector<int> topoSort( unordered_map<int,vector<int>> &adj,int n,vector<int>&indegree){
+        vector<int> result;
+        queue<int> que;
+        int count = 0;
+
+        for(int i = 0;i<n;i++){
+            if(indegree[i]==0){
+                result.push_back(i);
+                que.push(i);
+                count++;
+            }
+        }
+
+        while(!que.empty()){
+            int u = que.front();
+            que.pop();
+            for(int &v:adj[u]){
+                indegree[v]--;
+              if(indegree[v] == 0){
+                
+                result.push_back(v);
+                 count++;
+                que.push(v);
+              }
+            }
+            
+        }
+         if(count == n){
+            return result; 
+         }
+         else{
+            return {};   //there is a cycle so we cannot complete the courses
+         }
+    }
+vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int,vector<int>> adj;
+        vector<int> indegree(numCourses,0);
+        for(auto &e:prerequisites){
+            int a = e[0];
+            int b = e[1];
+            adj[b].push_back(a);
+            indegree[a]++;
+        }
+        return topoSort(adj,numCourses,indegree);
+        
+    }
+};
