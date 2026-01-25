@@ -1,0 +1,47 @@
+class Solution {
+public:
+    bool bfs(unordered_map<int, vector<int>>& adj,
+         int u, int v,
+         vector<bool>& visited) {
+
+    queue<int> que;
+    que.push(u);
+    visited[u] = true;
+
+    while (!que.empty()) {
+        int curr = que.front();
+        que.pop();
+
+        if (curr == v) return true;
+
+        for (int ngbr : adj[curr]) {
+            if (!visited[ngbr]) {
+                visited[ngbr] = true;
+                que.push(ngbr);
+            }
+        }
+    }
+    return false;
+}
+vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+    unordered_map<int, vector<int>> adj;
+    int n = edges.size();
+
+    for (auto &e : edges) {
+        int u = e[0];
+        int v = e[1];
+
+        vector<bool> visited(n + 1, false);
+
+        if (!adj[u].empty() && !adj[v].empty() &&
+            bfs(adj, u, v, visited)) {
+            return e;
+        }
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    return {};
+}
+
+};
