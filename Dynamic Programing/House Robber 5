@@ -1,0 +1,27 @@
+class Solution {
+public:
+
+    long long solve(int i,vector<int>& nums, vector<int>& colors,vector<long long> &dp){
+        int n = nums.size();
+        if(i>=n) return 0;
+         if(dp[i] != -1) return dp[i];
+
+        long long  skip = solve(i+1,nums,colors,dp);
+        long long take;
+
+        if(i+1<n && colors[i]== colors[i+1])
+            take = nums[i]+ solve(i+2,nums,colors,dp);
+        else
+              take = nums[i] + solve(i+1,nums,colors,dp);
+
+      return dp[i] = max(skip,take);
+    }
+    long long rob(vector<int>& nums, vector<int>& colors) {
+        int n = nums.size();
+        vector<long long> dp(n,-1);
+
+        return solve(0,nums,colors,dp);
+        
+        
+    }
+};
